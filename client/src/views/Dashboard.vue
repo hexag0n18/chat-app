@@ -13,7 +13,7 @@
               class="btn btn-active btn-sm btn-primary"
               >Enter</router-link
             >
-            <div class="badge badge-outline">connected</div>
+            <div class="badge badge-outline">{{ usersChatRoom }} connected</div>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
   export default {
     name: "Dashboard",
     computed: {
-      ...mapState(["connectedUsers"]),
+      ...mapState(["connectedUsers", "usersChatRoom"]),
     },
     methods: {
       async logout() {

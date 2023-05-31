@@ -23,6 +23,8 @@ const store = new Store({
     auth: sessionStorage.getItem("token") ? true : false,
     connectedUsers: [],
     connected: false,
+    usersChatRoom: 0,
+    inChatRoom: false,
   },
   mutations: {
     doLogin(state, user) {
@@ -35,6 +37,12 @@ const store = new Store({
     },
     updateUsersList(state, userList) {
       state.connectedUsers = userList;
+    },
+    updateChatUsers(state, users) {
+      state.usersChatRoom = users;
+    },
+    quitChatRoom(state) {
+      state.inChatRoom = false;
     },
     openConnection(state) {
       state.connected = true;
@@ -115,13 +123,25 @@ router.beforeEach((to, from, next) => {
       }
       next();
     } else next({ name: "Login" });
+    socket.on("user in chat", (user) => {
+      console.log(user);
+      store.commit("updateUsersList", user.userList);
+      store.commit("updateChatUsers", user.numUsers);
+    });
     socket.on("user login", (user) => {
       console.log(user);
       store.commit("updateUsersList", user.userList);
+      store.commit("updateChatUsers", user.numUsers);
     });
     socket.on("user logout", (user) => {
       console.log(user);
       store.commit("updateUsersList", user.userList);
+    });
+    socket.on("user joined", (data) => {
+      store.commit("updateChatUsers", data.users);
+    });
+    socket.on("user left", (data) => {
+      store.commit("updateChatUsers", data.users);
     });
   } else if (to.matched.some((record) => record.meta.guest))
     if (store.state.auth) next({ name: "Dashboard" });

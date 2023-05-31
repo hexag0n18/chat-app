@@ -45,7 +45,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage, fileFilter });
 
-// Database in memory
+// Database in memory (with testing users)
 let users = [
   {
     username: "Josh",
