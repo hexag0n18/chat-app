@@ -1,0 +1,33 @@
+# Módulos y dependencias instalados
+node_modules/
+
+# Archivos generados durante la construcción
+dist/
+build/
+out/
+*.log
+
+# Archivos de entorno
+.env
+.env.*
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs y archivos temporales
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+*.swp
+*.swo
+*.bak
+
+# Otros
+.sass-cache/
+.pnpm/
+.npm/
+.eslintcache/
+coverage/
+uploads/*
