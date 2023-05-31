@@ -30,4 +30,4 @@ yarn-error.log*
 .npm/
 .eslintcache/
 coverage/
-uploads/*
+uploads/*.*

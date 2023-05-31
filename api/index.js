@@ -23,6 +23,7 @@ const register = require("./routes/register");
 const { verifyAuth } = require("./middleware/verifyAuth");
 const login = require("./routes/login");
 const runLogService = require("./socket");
+const settings = require("./routes/settings");
 
 const port = process.env.PORT || 3000;
 
@@ -86,6 +87,7 @@ app.get("/api", (req, res) => {
 
 register(app, users, upload);
 login(app, users, tokens);
+settings(app, users, { verifyAuth });
 
 app.get("/verify", verifyAuth, (req, res) => {
   return res.json({ response: true });

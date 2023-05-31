@@ -13,8 +13,8 @@ import Chat from "./views/Chat.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import NotFound from "./views/NotFound.vue";
+import Settings from "./views/Settings.vue";
 import { socket } from "./socket";
-import { connect } from "socket.io-client";
 
 // Creating the store of vuex
 const store = new Store({
@@ -34,6 +34,9 @@ const store = new Store({
     doLogout(state) {
       state.auth = false;
       state.user = null;
+    },
+    updateUser(state) {
+      state.user = localStorage.getItem("user");
     },
     updateUsersList(state, userList) {
       state.connectedUsers = userList;
@@ -86,6 +89,14 @@ const routes = [
     },
   },
   {
+    name: "Settings",
+    path: "/settings",
+    component: Settings,
+    meta: {
+      authRequired: true,
+    },
+  },
+  {
     name: "Login",
     path: "/login",
     component: Login,
@@ -123,11 +134,6 @@ router.beforeEach((to, from, next) => {
       }
       next();
     } else next({ name: "Login" });
-    socket.on("user in chat", (user) => {
-      console.log(user);
-      store.commit("updateUsersList", user.userList);
-      store.commit("updateChatUsers", user.numUsers);
-    });
     socket.on("user login", (user) => {
       console.log(user);
       store.commit("updateUsersList", user.userList);

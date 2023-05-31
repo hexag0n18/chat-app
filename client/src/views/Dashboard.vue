@@ -17,7 +17,12 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-accent" @click="logout">Log Out</button>
+      <div class="btn-group">
+        <router-link :to="{ name: 'Settings' }" class="btn"
+          >Settings</router-link
+        >
+        <button class="btn btn-accent" @click="logout">Log Out</button>
+      </div>
     </div>
     <div class="divider"></div>
     <div class="overflow-x-auto w-auto mx-auto">
