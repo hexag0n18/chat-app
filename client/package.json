@@ -12,8 +12,10 @@
     "cookie-parser": "^1.4.6",
     "daisyui": "^2.52.0",
     "js-cookie": "^3.0.5",
+    "socket.io-client": "^4.6.2",
     "vue": "^3.3.2",
     "vue-router": "^4.2.2",
+    "vue-socket.io": "^3.0.10",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

@@ -1,6 +1,9 @@
 <script>
+  import { socket } from "./socket";
+
   export default {
     name: "App",
+    mounted() {},
   };
 </script>
 
@@ -10,4 +13,4 @@
   </div>
 </template>
 
-<style scoped></style>
+<style></style>

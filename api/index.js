@@ -7,7 +7,13 @@ require("dotenv").config();
 const app = express();
 const path = require("path");
 const server = require("http").createServer(app);
-const io = require("socket.io")(server); // Setting socket.io
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:4000",
+    methods: ["GET", "POST"],
+  },
+}); // Setting socket.io
+// const log = require("socket.io")(server); // Setting socket.io
 
 const bodyParser = require("body-parser");
 
@@ -16,6 +22,7 @@ const chatService = require("./chat");
 const register = require("./routes/register");
 const { verifyAuth } = require("./middleware/verifyAuth");
 const login = require("./routes/login");
+const runLogService = require("./socket");
 
 const port = process.env.PORT || 3000;
 
@@ -39,7 +46,21 @@ const storage = multer.diskStorage({
 const upload = multer({ storage, fileFilter });
 
 // Database in memory
-let users = [];
+let users = [
+  {
+    username: "Josh",
+    email: "josh@abypro.com",
+    password: "!Starcraft2",
+    image: "uploads/1685541053770-2961153.png",
+  },
+  {
+    username: "William",
+    email: "asd@asd.com",
+    password: "!Starcraft2",
+    image:
+      "uploads/1685545358342-wp10252262-business-intelligence-wallpapers.jpg",
+  },
+];
 let tokens = [];
 
 // Initialize server
@@ -73,4 +94,6 @@ app.get("/api/test", verifyAuth, (req, res) => {
   return res.json({ token: req.headers["x-access-token"] });
 });
 
-chatService(io);
+// io.engine.use(verifyAuth)
+runLogService(io);
+// chatService(io);
